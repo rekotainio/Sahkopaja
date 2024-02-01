@@ -66,7 +66,14 @@ void moveLeft() {
 void spawnTile() {
 
     srand(time(NULL));
-    board[rand() % 4][rand() % 4] = (1 + (rand() % 2)) * 2;     // ei kato onko tyhjä ruutu
+
+    int row, col;
+    do {
+        row = rand() % 4;
+        col = rand() % 4;
+    } while (board[row][col] != 0);
+    
+    board[row][col] = (1 + (rand() % 2)) * 2;    
 
 }
 
