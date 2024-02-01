@@ -65,6 +65,9 @@ void moveLeft() {
 // asettaa 2 tai 4 tyhjään ruutuun, esim. 80/20 tod.
 void spawnTile() {
 
+    srand(time(NULL));
+    board[rand() % 4][rand() % 4] = (1 + (rand() % 2)) * 2;     // ei kato onko tyhjä ruutu
+
 }
 
 // yhdistää kaksi samannumeroista ruutua
