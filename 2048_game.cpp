@@ -12,12 +12,18 @@ Lähteet: alkuperäinen peli selaimessa: https://play2048.co/
 #include <ctime>
 #include <string>*/
 
-int pushButton = 3;
+int pushButton2 = 2; // up
+int pushButton3 = 3; // right
+int pushButton4 = 4; // down
+int pushButton5 = 5; // left
 
 
 int board[4][4] = {0};
 void setup() {
-  pinMode(pushButton, INPUT);
+  pinMode(pushButton2, INPUT);
+  pinMode(pushButton3, INPUT);
+  pinMode(pushButton4, INPUT);
+  pinMode(pushButton5, INPUT);
   Serial.begin(9600);
 }
 
@@ -30,6 +36,7 @@ void printBoard() {
             }
         Serial.println();
     }
+    Serial.println("\n");
 
 }
 
@@ -61,15 +68,33 @@ void swap(int r1, int c1, int r2, int c2) {
 void loop() {
   
 
-  int buttonState = digitalRead(pushButton);
+  int buttonState2 = digitalRead(pushButton2); //up
+  int buttonState3 = digitalRead(pushButton3); // right
+  int buttonState4 = digitalRead(pushButton4); // down
+  int buttonState5 = digitalRead(pushButton5); // left
 
   // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
-  if (buttonState == HIGH) {
+  if (buttonState2 == HIGH) {
     // turn LED on:
     moveUp();
-    delay(300);
+    delay(500);
     //Serial.print("");
-  } else {
+  } else if (buttonState3 == HIGH) {
+    // turn LED on:
+    moveRight();
+    delay(500);
+    //Serial.print("");
+  }else if (buttonState4 == HIGH) {
+    // turn LED on:
+    moveDown();
+    delay(500);
+    //Serial.print("");
+  } else if (buttonState5 == HIGH) {
+    // turn LED on:
+    moveLeft();
+    delay(500);
+    //Serial.print("");
+  }{
     // turn LED off:
     digitalWrite(13, LOW);
     
