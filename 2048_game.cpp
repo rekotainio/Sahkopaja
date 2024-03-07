@@ -21,7 +21,7 @@ int pushButton5 = 5; // left
 
 
 int board[4][4] = {0};
-int newBoard(64);
+int newBoard[64];
 
 void setup() {
   pinMode(pushButton2, INPUT);
@@ -41,7 +41,11 @@ void printBoard() {
         Serial.println();
     }
     Serial.println("\n");
-
+    flattenBoard();
+    for (int i = 0; i < 64; ++i) {
+      Serial.print(newBoard[i]);
+    }
+    Serial.println("\n");
 }
 
 void insertToRandomPosition() { // Initialize the 4x4 board with zeros
