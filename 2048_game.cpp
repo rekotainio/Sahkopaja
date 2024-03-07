@@ -22,6 +22,8 @@ int pushButton5 = 5; // left
 
 int board[4][4] = {0};
 int newBoard[64];
+rgb_color colors[64];
+PololuLedStrip<8> ledStrip;
 
 void setup() {
   pinMode(pushButton2, INPUT);
@@ -64,6 +66,7 @@ void insertToRandomPosition() { // Initialize the 4x4 board with zeros
     
     // Printing the board
     printBoard();
+    ledStrip.write(colors, 64);
 
 }
 
@@ -84,6 +87,20 @@ void flattenBoard(){
             newBoard[baseIndex + 14 - 2 * j] = board[i][j];
         }
     }
+}
+
+void vectorToColors(){
+  for (int i = 0; i < 64; ++i) {
+    if(newBoard[i] == 2){
+      colors[i] = rgb_color(255,0,0);
+    }
+    if(newBoard[i] == 4){
+      colors[i] = rgb_color(0,255,0);
+    }
+    if(newBoard[i] == 2){
+      colors[i] = rgb_color(0,0,255);
+    }
+  }
 }
 
 
