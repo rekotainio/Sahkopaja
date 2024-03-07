@@ -12,6 +12,8 @@ Lähteet: alkuperäinen peli selaimessa: https://play2048.co/
 #include <ctime>
 #include <string>*/
 
+#include <PololuLedStrip.h>
+
 int pushButton2 = 2; // up
 int pushButton3 = 3; // right
 int pushButton4 = 4; // down
@@ -19,6 +21,8 @@ int pushButton5 = 5; // left
 
 
 int board[4][4] = {0};
+int newBoard(64);
+
 void setup() {
   pinMode(pushButton2, INPUT);
   pinMode(pushButton3, INPUT);
@@ -64,6 +68,20 @@ void swap(int r1, int c1, int r2, int c2) {
   board[r1][c1]=board[r2][c2];
   board[r2][c2]=t;
   }
+
+void flattenBoard(){
+  
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            int baseIndex = 16 * i;
+            newBoard[baseIndex + 2 * j] = board[i][j];
+            newBoard[baseIndex + 2 * j + 1] = board[i][j];
+            newBoard[baseIndex + 15 - 2 * j] = board[i][j];
+            newBoard[baseIndex + 14 - 2 * j] = board[i][j];
+        }
+    }
+}
+
 
 void loop() {
   
