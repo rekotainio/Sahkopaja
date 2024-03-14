@@ -20,10 +20,12 @@ int pushButton4 = 4; // down
 int pushButton5 = 5; // left
 
 
+#define LED_COUNT 64
 int board[4][4] = {0};
-int newBoard[64];
-rgb_color colors[64];
-PololuLedStrip<8> ledStrip;
+//int mirrorBoard[4][4] = {0};
+int newBoard[LED_COUNT];
+rgb_color colors[LED_COUNT];
+PololuLedStrip<12> ledStrip;
 
 void setup() {
   pinMode(pushButton2, INPUT);
@@ -42,13 +44,29 @@ void printBoard() {
             }
         Serial.println();
     }
+    
     Serial.println("\n");
     flattenBoard();
-    for (int i = 0; i < 64; ++i) {
+    for (int i = 0; i < LED_COUNT; ++i) {
       Serial.print(newBoard[i]);
     }
+    vectorToColors();
     Serial.println("\n");
+    /*
+    for (int i = 0; i < LED_COUNT; ++i) {
+      Serial.print(colors[i]);
+    }
+    Serial.println("\n");*/
 }
+/*
+void mirrorVertical() {
+    for (int r = 0; r < 4; ++r) {
+        for (int c = 0; c < c; ++r) {
+            // Copy elements from source matrix in reverse order to destination matrix
+            mirrorBoard[r][c] = board[r][3 - c];
+        }
+    }
+}*/
 
 void insertToRandomPosition() { // Initialize the 4x4 board with zeros
 
@@ -66,7 +84,7 @@ void insertToRandomPosition() { // Initialize the 4x4 board with zeros
     
     // Printing the board
     printBoard();
-    ledStrip.write(colors, 64);
+    ledStrip.write(colors, LED_COUNT);
 
 }
 
@@ -90,19 +108,39 @@ void flattenBoard(){
 }
 
 void vectorToColors(){
-  for (int i = 0; i < 64; ++i) {
+  for (int i = 0; i < LED_COUNT; ++i) {
     if(newBoard[i] == 2){
-      colors[i] = rgb_color(255,0,0);
+      colors[LED_COUNT - 1 - i] = rgb_color(255,0,0);
     }
     if(newBoard[i] == 4){
-      colors[i] = rgb_color(0,255,0);
+      colors[LED_COUNT - 1 - i] = rgb_color(0,255,0);
     }
-    if(newBoard[i] == 2){
-      colors[i] = rgb_color(0,0,255);
+    if(newBoard[i] == 8){
+      colors[LED_COUNT - 1 - i] = rgb_color(0,0,255);
+    }
+    if(newBoard[i] != 2 && newBoard[i] != 4 && newBoard[i] != 8){
+      colors[LED_COUNT - 1 - i] = rgb_color(0,0,0);
     }
   }
 }
-
+/*
+void vectorToColors(){
+  for (int i = 0; i < LED_COUNT; ++i) {
+    if(newBoard[i] == 2){
+      colors[i] = 2;
+    }
+    if(newBoard[i] == 4){
+      colors[i] = 4;
+    }
+    if(newBoard[i] == 8){
+      colors[i] = 8;
+    }
+    if(newBoard[i] != 2 && newBoard[i] != 4 && newBoard[i] != 8){
+      colors[i] = 9;
+    }
+  }
+}
+*/
 
 void loop() {
   
